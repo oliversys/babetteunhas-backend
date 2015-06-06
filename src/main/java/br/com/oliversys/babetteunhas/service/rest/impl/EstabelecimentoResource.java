@@ -52,10 +52,17 @@ import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
      }
    }
 
+   @Path("/todos")
+   @GET
+   @Produces({"application/json"})
+   public Response consultarTodos() {
+	   List<Estabelecimento> lista = this.ejb.consultarTodos();
+	   return Response.ok().entity(lista).build();
+   }   
+   
    @Path("/bairro/{bairro}")
    @GET
    @Produces({"application/json"})
-   @Override
    public Response consultarPorBairro(@PathParam("bairro") String b) {
 	   List<Estabelecimento> lista = this.ejb.consultarPorBairro(b);
 	   return Response.ok().entity(lista).build();
@@ -64,7 +71,6 @@ import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
    @Path("/cidade/{cidade}")
    @GET
    @Produces({"application/json"})
-   @Override
    public Response consultarPorCidade(@PathParam("cidade") String c) {
 	   List<Estabelecimento> lista = this.ejb.consultarPorCidade(c);
 	   return Response.ok().entity(lista).build();
@@ -85,7 +91,6 @@ import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
    @Path("/incluir")
    @PUT
    @Consumes({"application/json"})
-   @Override
    public Response incluir(Estabelecimento e) {
 	   Estabelecimento estab = this.ejb.incluir(e);
 	   if (estab != null)
@@ -95,7 +100,6 @@ import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
 
    @PUT
    @Consumes({"application/json"})
-   @Override
    public Response atualizar(Estabelecimento e) {
 	   this.ejb.atualizar(e);
 	   return Response.ok().build();

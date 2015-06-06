@@ -6,6 +6,7 @@ import bean.Estabelecimento;
 
 public interface IEstabelecimentoRESTService
 {
+	public Response consultarTodos();
 	public Response consultarPorBairro(String b);
 	public Response consultarPorCidade(String c);
 	public Response incluir(Estabelecimento e);

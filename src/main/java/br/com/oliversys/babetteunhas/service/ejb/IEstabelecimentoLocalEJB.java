@@ -11,4 +11,5 @@ public interface IEstabelecimentoLocalEJB extends ICRUD<Estabelecimento>{
 	public List<Estabelecimento> consultarTodos();
 	public List<Estabelecimento> consultarPorBairro(String b);
 	public List<Estabelecimento> consultarPorCidade(String c);
+	public List<Estabelecimento> consultarPorCEP(String c);
 }

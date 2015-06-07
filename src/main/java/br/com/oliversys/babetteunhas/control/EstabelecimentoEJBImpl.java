@@ -69,4 +69,10 @@ import br.com.oliversys.babetteunhas.service.ejb.IEstabelecimentoLocalEJB;
 		   Object paramObject) {
 	   return jpaDao.consultarPorCampo(paramString,paramObject);
    }
+
+	@Override
+	public List<Estabelecimento> consultarPorCEP(String c) {
+		return jpaDao.consultarPorCampoLike("endereco","CEP", c);
+	}
+
 }

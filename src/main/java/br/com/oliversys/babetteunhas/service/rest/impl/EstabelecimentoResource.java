@@ -59,6 +59,14 @@ import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
 	   List<Estabelecimento> lista = this.ejb.consultarTodos();
 	   return Response.ok().entity(lista).build();
    }   
+
+   @Path("/cep/{cep}")
+   @GET
+   @Produces({"application/json"})
+   public Response consultarPorCEP(@PathParam("cep") String cep) {
+	   List<Estabelecimento> lista = this.ejb.consultarPorCEP(cep);
+	   return Response.ok().entity(lista).build();
+   }
    
    @Path("/bairro/{bairro}")
    @GET

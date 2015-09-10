@@ -24,7 +24,7 @@ import br.com.oliversys.babetteunhas.service.ejb.IEstabelecimentoLocalEJB;
 import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
  
  @TransactionManagement(TransactionManagementType.CONTAINER)
- @Path("/estabelecimento")
+ @Path("/estabelecimentos")
  public class EstabelecimentoResource implements IEstabelecimentoRESTService
  {
    @Inject
@@ -56,7 +56,7 @@ import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
    @GET
    @Produces({"application/json"})
    public Response consultarTodos() {
-	   List<Estabelecimento> lista = this.ejb.consultarTodos();
+	   List<Estabelecimento> lista = this.ejb.consultarTodos();	   
 	   return Response.ok().entity(lista).build();
    }   
 

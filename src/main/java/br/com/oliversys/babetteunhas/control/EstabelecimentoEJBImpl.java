@@ -47,8 +47,10 @@ import br.com.oliversys.babetteunhas.service.ejb.IEstabelecimentoLocalEJB;
 	   return c;
    }
 
-   public List consultarTodos() {
-	   return jpaDao.consultarTodos();
+   public List<Estabelecimento> consultarTodos() {
+	   String jpql = "from Estabelecimento e join fetch e.comentarios";
+	   return jpaDao.executarJPQL(jpql);
+	   //return jpaDao.consultarTodos();
    }
 
    public Estabelecimento findById(Object paramObject) {
@@ -57,17 +59,16 @@ import br.com.oliversys.babetteunhas.service.ejb.IEstabelecimentoLocalEJB;
 
    // associacao com embedded document "endereco"
    public List<Estabelecimento> consultarPorBairro(String b) {
-	   return this.consultarPorCampo("endereco.bairro", b);
+	   return this.consultarPorCampo("endereco","bairro", b);
    }
 
    public List<Estabelecimento> consultarPorCidade(String c) {	   
-	   return this.consultarPorCampo("endereco.cidade", c);
+	   return this.consultarPorCampo("endereco","cidade", c);
    }
 
-   @Override
-   public List<Estabelecimento> consultarPorCampo(String paramString,
+   public List<Estabelecimento> consultarPorCampo(String paramString,String subCampo,
 		   Object paramObject) {
-	   return jpaDao.consultarPorCampo(paramString,paramObject);
+	   return jpaDao.consultarPorCampo(paramString,subCampo,paramObject);
    }
 
 	@Override

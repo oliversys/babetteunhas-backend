@@ -7,7 +7,6 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
 import bean.IBabetteUnhasEntity;
@@ -38,11 +37,14 @@ import bean.IBabetteUnhasEntity;
      return q.getResultList();
    }
    
-   public List<T> consultarPorCampo(String nomeCampo, Object valorCampo) {
+   public List<T> consultarPorCampo(String nomeCampo, String nomeSubCampo, Object valorCampo) {
      CriteriaQuery<T> query = this.entityManager.getCriteriaBuilder().createQuery(this.entityClass);
      Root<T> r = query.from(this.entityClass);
      query.select(r);
-     query.where(this.builder.equal(r.get(nomeCampo), valorCampo));
+     if (nomeSubCampo != null)
+    	 query.where(this.builder.equal(r.get(nomeCampo).get(nomeSubCampo), valorCampo));
+     else
+    	 query.where(this.builder.equal(r.get(nomeCampo), valorCampo));
      
      return this.entityManager.createQuery(query).getResultList();
    }
@@ -51,9 +53,12 @@ import bean.IBabetteUnhasEntity;
      CriteriaQuery<T> query = this.entityManager.getCriteriaBuilder().createQuery(this.entityClass);
      Root<T> r = query.from(this.entityClass);
      query.select(r);
-     query.where(this.builder.like(r.get(nomeCampo).get(nomeSubCampo).as(String.class), valorCampo.toString()+"%"));
+     query.where(this.builder.like(r.get(nomeCampo).get(nomeSubCampo)
+    		 .as(String.class), "%" + valorCampo.toString() + "%"));
      
-     return this.entityManager.createQuery(query).getResultList();
+     List<T> lista = this.entityManager.createQuery(query).getResultList();
+          
+     return lista;
    }
    
    public List<T> executarJPQL(String jpql) {

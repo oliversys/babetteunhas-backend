@@ -1,14 +1,10 @@
- package br.com.oliversys.babetteunhas.service.rest.impl;
+ package br.com.oliversys.babetteunhas.rest;
  
- import java.util.Hashtable;
-import java.util.List;
+ import java.util.List;
 
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,9 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import bean.Profissional;
-import br.com.oliversys.babetteunhas.control.ProfissionalEJBImpl;
-import br.com.oliversys.babetteunhas.service.ejb.IProfissionalLocalEJB;
-import br.com.oliversys.babetteunhas.service.rest.IProfissionalRESTService;
+import br.com.oliversys.babetteunhas.ejb.spec.IProfissionalLocalEJB;
+import br.com.oliversys.babetteunhas.rest.spec.IProfissionalRESTService;
  
  @TransactionManagement(TransactionManagementType.CONTAINER)
  @Path("/profissionais")
@@ -30,28 +25,8 @@ import br.com.oliversys.babetteunhas.service.rest.IProfissionalRESTService;
    @Inject
    private IProfissionalLocalEJB ejb;
    
-   public ProfissionalResource()
-   {
-     doSessionEJBlookup();
-   }
+   public ProfissionalResource(){}
        
-   private void doSessionEJBlookup() {
-     Hashtable<String, String> jndiProperties = new Hashtable();
-     jndiProperties.put("java.naming.factory.url.pkgs", "org.jboss.ejb.client.naming");
-     Context context = null;
-     String appName = "babetteunhas-backend";
-     String beanName = ProfissionalEJBImpl.class.getSimpleName();
-     String viewClassName = IProfissionalLocalEJB.class.getName();
-     try
-     {
-       context = new InitialContext(jndiProperties);
-       this.ejb = ((IProfissionalLocalEJB)context.lookup(
-         "java:app/babetteunhas-backend/" + beanName + "!" + viewClassName));
-     } catch (NamingException e) {
-       e.printStackTrace();
-     }
-   }
-
    @Path("/todos")
    @GET
    @Produces({"application/json"})

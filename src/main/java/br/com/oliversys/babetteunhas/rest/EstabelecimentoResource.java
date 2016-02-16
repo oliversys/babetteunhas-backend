@@ -1,14 +1,10 @@
- package br.com.oliversys.babetteunhas.service.rest.impl;
+ package br.com.oliversys.babetteunhas.rest;
  
- import java.util.Hashtable;
-import java.util.List;
+ import java.util.List;
 
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,9 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import bean.Estabelecimento;
-import br.com.oliversys.babetteunhas.control.EstabelecimentoEJBImpl;
-import br.com.oliversys.babetteunhas.service.ejb.IEstabelecimentoLocalEJB;
-import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
+import br.com.oliversys.babetteunhas.ejb.spec.IEstabelecimentoLocalEJB;
+import br.com.oliversys.babetteunhas.rest.spec.IEstabelecimentoRESTService;
  
  @TransactionManagement(TransactionManagementType.CONTAINER)
  @Path("/estabelecimentos")
@@ -30,27 +25,7 @@ import br.com.oliversys.babetteunhas.service.rest.IEstabelecimentoRESTService;
    @Inject
    private IEstabelecimentoLocalEJB ejb;
    
-   public EstabelecimentoResource()
-   {
-     doSessionEJBlookup();
-   }
-       
-   private void doSessionEJBlookup() {
-     Hashtable<String, String> jndiProperties = new Hashtable();
-     jndiProperties.put("java.naming.factory.url.pkgs", "org.jboss.ejb.client.naming");
-     Context context = null;
-     String appName = "babetteunhas-backend";
-     String beanName = EstabelecimentoEJBImpl.class.getSimpleName();
-     String viewClassName = IEstabelecimentoLocalEJB.class.getName();
-     try
-     {
-       context = new InitialContext(jndiProperties);
-       this.ejb = ((IEstabelecimentoLocalEJB)context.lookup(
-         "java:app/babetteunhas-backend/" + beanName + "!" + viewClassName));
-     } catch (NamingException e) {
-       e.printStackTrace();
-     }
-   }
+   public EstabelecimentoResource(){}
 
    @Path("/todos")
    @GET

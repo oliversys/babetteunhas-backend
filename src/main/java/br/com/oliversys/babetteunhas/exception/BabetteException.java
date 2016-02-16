@@ -1,4 +1,4 @@
-package exception;
+package br.com.oliversys.babetteunhas.exception;
 
 public class BabetteException extends RuntimeException {
 

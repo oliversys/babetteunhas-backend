@@ -1,4 +1,4 @@
-package br.com.oliversys.babetteunhas.control;
+package br.com.oliversys.babetteunhas.ejb;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.oliversys.babette.bean.entity.Pergunta;
+import br.com.oliversys.babetteunhas.ejb.spec.IQuizLocalEJB;
 import br.com.oliversys.babetteunhas.persistence.JPAGenericDAO;
 import br.com.oliversys.babetteunhas.persistence.JpaDAO;
-import br.com.oliversys.babetteunhas.service.ejb.IQuizLocalEJB;
 
 @Stateless
 @Local({IQuizLocalEJB.class})

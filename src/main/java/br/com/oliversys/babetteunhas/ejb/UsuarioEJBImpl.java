@@ -1,4 +1,4 @@
- package br.com.oliversys.babetteunhas.control;
+ package br.com.oliversys.babetteunhas.ejb;
  
  import java.util.List;
 
@@ -8,9 +8,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
 import bean.Usuario;
+import br.com.oliversys.babetteunhas.ejb.spec.IUsuarioLocalEJB;
 import br.com.oliversys.babetteunhas.persistence.JPAGenericDAO;
 import br.com.oliversys.babetteunhas.persistence.JpaDAO;
-import br.com.oliversys.babetteunhas.service.ejb.IUsuarioLocalEJB;
  
  @Stateless
  @Local({IUsuarioLocalEJB.class})

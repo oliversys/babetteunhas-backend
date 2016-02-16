@@ -1,4 +1,4 @@
-package br.com.oliversys.babetteunhas.service.rest;
+package br.com.oliversys.babetteunhas.rest.spec;
 
 import javax.ws.rs.core.Response;
 

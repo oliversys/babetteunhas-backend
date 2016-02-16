@@ -1,14 +1,10 @@
- package br.com.oliversys.babetteunhas.service.rest.impl;
+ package br.com.oliversys.babetteunhas.rest;
  
- import java.util.Hashtable;
-import java.util.List;
+ import java.util.List;
 
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,9 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import br.com.oliversys.babette.bean.entity.Pergunta;
-import br.com.oliversys.babetteunhas.control.QuizEJBImpl;
-import br.com.oliversys.babetteunhas.service.ejb.IQuizLocalEJB;
-import br.com.oliversys.babetteunhas.service.rest.IQuizRESTService;
+import br.com.oliversys.babetteunhas.ejb.spec.IQuizLocalEJB;
+import br.com.oliversys.babetteunhas.rest.spec.IQuizRESTService;
  
  @TransactionManagement(TransactionManagementType.CONTAINER)
  @Path("/perguntas")
@@ -30,28 +25,8 @@ import br.com.oliversys.babetteunhas.service.rest.IQuizRESTService;
    @Inject
    private IQuizLocalEJB ejb;
    
-   public PerguntaResource()
-   {
-     doSessionEJBlookup();
-   }
+   public PerguntaResource(){}
        
-   private void doSessionEJBlookup() {
-     Hashtable<String, String> jndiProperties = new Hashtable();
-     jndiProperties.put("java.naming.factory.url.pkgs", "org.jboss.ejb.client.naming");
-     Context context = null;
-     String appName = "babetteunhas-backend";
-     String beanName = QuizEJBImpl.class.getSimpleName();
-     String viewClassName = IQuizLocalEJB.class.getName();
-     try
-     {
-       context = new InitialContext(jndiProperties);
-       this.ejb = ((IQuizLocalEJB)context.lookup(
-         "java:app/babetteunhas-backend/" + beanName + "!" + viewClassName));
-     } catch (NamingException e) {
-       e.printStackTrace();
-     }
-   }
-
    @Path("/todos")
    @GET
    @Produces({"application/json"})

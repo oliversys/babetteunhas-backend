@@ -1,4 +1,4 @@
- package br.com.oliversys.babetteunhas.service.rest.impl;
+ package br.com.oliversys.babetteunhas.rest;
  
  import java.util.Hashtable;
 import java.util.List;
@@ -19,9 +19,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import bean.Usuario;
-import br.com.oliversys.babetteunhas.control.UsuarioEJBImpl;
-import br.com.oliversys.babetteunhas.service.ejb.IUsuarioLocalEJB;
-import br.com.oliversys.babetteunhas.service.rest.IUsuarioRESTService;
+import br.com.oliversys.babetteunhas.ejb.UsuarioEJBImpl;
+import br.com.oliversys.babetteunhas.ejb.spec.IUsuarioLocalEJB;
+import br.com.oliversys.babetteunhas.rest.spec.IUsuarioRESTService;
  
  @TransactionManagement(TransactionManagementType.CONTAINER)
  @Path("/usuario")
@@ -30,28 +30,8 @@ import br.com.oliversys.babetteunhas.service.rest.IUsuarioRESTService;
    @Inject
    private IUsuarioLocalEJB ejb;
    
-   public UsuarioResource()
-   {
-     doSessionEJBlookup();
-   }
+   public UsuarioResource(){}
        
-   private void doSessionEJBlookup() {
-     Hashtable<String, String> jndiProperties = new Hashtable();
-     jndiProperties.put("java.naming.factory.url.pkgs", "org.jboss.ejb.client.naming");
-     Context context = null;
-     String appName = "babetteunhas-backend";
-     String beanName = UsuarioEJBImpl.class.getSimpleName();
-     String viewClassName = IUsuarioLocalEJB.class.getName();
-     try
-     {
-       context = new InitialContext(jndiProperties);
-       this.ejb = ((IUsuarioLocalEJB)context.lookup(
-         "java:app/babetteunhas-backend/" + beanName + "!" + viewClassName));
-     } catch (NamingException e) {
-       e.printStackTrace();
-     }
-   }
-
    @Path("/todos")
    @GET
    @Produces({"application/json"})
